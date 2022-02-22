@@ -1,0 +1,157 @@
+{
+  "GET /api": {
+    "description": "Serves up a json representation of all the available endpoints of the api",
+    "responseFormat": {}
+  },
+  "GET /api/topics": {
+    "description": "Serves an array of all topics",
+    "responseFormat": {
+      "topics": [
+        { 
+          "slug": "String", 
+          "description": "String" 
+        }
+      ]
+    }
+  },
+  "GET /api/articles": {
+    "description": "Serves an array of all articles",
+    "acceptedQueries": {
+      "topic": ["coding", "football", "cooking"],
+      "sort": ["author", "title", "article_id", "topic", "created_at", "votes", "comment_count"],
+      "order": ["ASC", "DESC"]
+    },
+    "responseFormat": {
+      "articles": [
+        {
+          "author": "String",
+          "title": "String",
+          "article_id": "Number",
+          "topic": "String",
+          "created_at": "Timestamp",
+          "votes": "Number",
+          "comment_count": "Number"
+        }
+      ]
+    }
+  },
+  "GET /api/articles/:article_id": {
+    "description": "Serves an array of specific article using its article_id",
+    "responseFormat": {
+      "article": [
+        {
+          "article_id": "Number",
+          "title": "String",
+          "body": "String",
+          "votes": "Number",
+          "topic": "String",
+          "author": "String",
+          "created_at": "Timestamp",
+          "comment_count": "Number"
+        }
+     ]
+    }
+  },
+  "PATCH /api/articles/:article_id": {
+    "description": "Updates article's votes using its article_id",
+    "inputFormat": {
+      "newVote": {
+        "inc_votes": "Number"
+      }
+    },
+    "responseFormat": {
+      "article": [
+        {
+          "article_id": "Number",
+          "title": "String",
+          "body": "String",
+          "votes": "Number",
+          "topic": "String",
+          "author": "String",
+          "created_at": "Timestamp"
+        }
+      ]
+    }
+  },
+  "GET /api/articles/:article_id/comments": {
+    "description": "Serves an array of comments for the provided article_id",
+    "responseFormat": {
+      "comment": [
+        {
+        "comment_id": "Number",
+        "votes": "Number",
+        "created_at": "Timestamp",
+        "author": "String",
+        "body": "String"
+        }
+      ]
+    }
+  },
+  "POST /api/articles/:article_id/comments": {
+    "description": "Posts a new comment for the provided article_id",
+    "inputFormat": {
+      "comment": {
+        "username": "String",
+        "body": "String"
+      }
+    },
+    "responseFormat": {
+      "comment": [
+        {
+          "comment_id": "Number",
+          "votes": "Number",
+          "created_at": "Timestamp",
+          "author": "String",
+          "body": "String",
+          "article_id": "Number"
+        }
+      ]
+    }
+  },
+  "DELETE /api/comments/:comment_id": {
+    "description": "Deletes a specific comment using its id",
+    "responseFormat": {}
+  },
+  "GET /api/users": {
+    "description": "Serves an array of all users",
+    "responseFormat": {
+      "users": [
+        {
+        "username": "String"
+        }
+      ]
+    }
+  },
+  "GET /api/users/:username": {
+    "description": "Serves the user's info after providing its username",
+    "responseFormat": {
+      "user": [
+        {
+        "username": "String",
+        "name": "String",
+        "avatar_url": "String"
+        }
+      ]
+    }
+  },
+  "PATCH /api/comments/:comment_id": {
+    "description": "Updates comment's votes using its comment_id",
+    "inputFormat": {
+      "newVote": {
+        "inc_votes": "Number"
+      }
+    },
+    "responseFormat": {
+      "comment": [
+        {
+        "comment_id": "Number",
+        "author": "String",
+        "article_id": "Number",
+        "votes": "Number",
+        "created_at": "Timestamp",
+        "body": "String"
+        }
+      ]
+    }
+  }
+}
